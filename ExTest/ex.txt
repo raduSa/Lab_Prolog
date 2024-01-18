@@ -1,0 +1,15 @@
+lista_puncte([], _, []).
+lista_puncte([punct(Y, X)|T], V, [punct(Y, X)|L1]) :- X > V, lista_puncte(T, V, L1).
+lista_puncte([_|T], V, L1) :- lista_puncte(T, V, L1).
+
+dropN(L, R1, N) :- length(L, Length), Length >= N, reverse(L, L1), revdropN(L1, R, N), 
+    reverse(R, R1).
+revdropN([_|T], R, N) :- N > 0, M is N - 1, revdropN(T, R, M).
+revdropN(L, L, _).
+
+rmdn(X, X) :- atom(X).
+rmdn(non(non(X)), R) :- rmdn(X, R).
+rmdn(non(X), non(R)) :- rmdn(X, R).
+rmdn(si(X, Y), si(X1, Y1)) :- rmdn(X, X1), rmdn(Y, Y1).
+rmdn(sau(X, Y), sau(X1, Y1)) :- rmdn(X, X1), rmdn(Y, Y1).
+rmdn(imp(X, Y), imp(X1, Y1)) :- rmdn(X, X1), rmdn(Y, Y1).
