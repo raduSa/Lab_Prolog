@@ -1,0 +1,23 @@
+palindrome(L) :- reverse(L, L1), L = L1.
+
+remove_duplicates([], []).
+remove_duplicates([H|T], L1) :- member(H, T), remove_duplicates(T, L1).
+remove_duplicates([H|T], [H|L1]) :- remove_duplicates(T, L1).
+
+atimes(_, [], 0).
+atimes(X, [X|T], N) :- atimes(X, T, N1), N is N1 + 1.
+atimes(X, [_|T], N) :- atimes(X, T, N).
+
+insertsort([],[]).
+insertsort([H|T],L) :- insertsort(T,L1), insert(H,L1,L).
+insert(X, [], [X]).
+insert(X, [H|T], [H|L]) :- X > H, insert(X, T, L).
+insert(X, [H|T], [X, H|T]).
+
+quicksort([],[]).
+quicksort([H|T],L) :-
+split(H,T,A,B), quicksort(A,M), quicksort(B,N),
+append(M,[H|N],L).
+split(_, [], [], []).
+split(X, [H|T], [H|A], B) :- X > H, split(X, T, A, B).
+split(X, [H|T], A, [H|B]) :- split(X, T, A, B).
