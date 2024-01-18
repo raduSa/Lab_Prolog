@@ -1,0 +1,28 @@
+distance((X1, Y1), (X2, Y2), D) :- T1 is (X1 - X2) ** 2, 
+    T2 is (Y1 - Y2) ** 2, S is T1 + T2, D is sqrt(S).
+
+fib(2, 1, 1).
+fib(1, 1, 0).
+fib(N, X, Y) :- N1 is N - 1, fib(N1, Y, Z), X is Y + Z.
+fibo(N, X) :- fib(N, X, _).
+
+builder(0, _, _).
+builder(N, X, C) :- N1 is N - 1, builder(N1, X, C), line(X, C).
+line(0, _) :- nl.
+line(N, C) :- N1 is N - 1, write(C), line(N1, C).
+square(N, C) :- builder(N, N, C).
+
+all_a([]).
+all_a(['a'|T]) :- all_a(T).
+trans_a_b([], []).
+trans_a_b(['a'|T1], ['b'|T2]) :- trans_a_b(T1, T2).
+
+scalarMult(_, [], []).
+scalarMult(X, [H|T], [H1|T1]) :- H1 is H * X, scalarMult(X, T, T1). 
+
+dot([], [], 0).
+dot([H1|T1], [H2|T2], R) :- dot(T1, T2, R1), R is R1 + H1 * H2.
+
+max([], 0).
+max([H|T], H) :- max(T, M), H > M.
+max([H|T], M) :- max(T, M), H =< M.
